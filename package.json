@@ -1,0 +1,20 @@
+{
+  "name": "backer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-coffee": "~0.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/connor4312/backer"
+  },
+  "author": "Connor Peet <connor@connorpeet.com>",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/connor4312/backer/pulls"
+  }
+}
