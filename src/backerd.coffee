@@ -1,12 +1,12 @@
-log = require './lib/logging'
+app = require './lib/express'
 
-http = require 'http'
-hooks = require './lib/hooks'
+require('./routes/command-publicize')(app)
+require('./routes/command-receive')(app)
+require('./routes/command-remove')(app)
+require('./routes/command-send')(app)
+require('./routes/command-size')(app)
+require('./routes/download')(app)
 
-hooks.set data
-hooks.add 'download'
-hooks.add 'command'
+config = require './config'
 
-server = http.createServer hooks.dispatch
-
-server.listen(data.http_port, data.host);
+app.listen config.http_port, config.host

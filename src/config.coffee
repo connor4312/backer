@@ -1,7 +1,7 @@
 module.exports =
 	host: '127.0.0.1'
 	command_port: 9001
-	http_port: 8080
+	http_port: 8008
 
 	password: 'foopass'
 
