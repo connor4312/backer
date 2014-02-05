@@ -1,5 +1,8 @@
-module.exports = (settings) ->
-	return {
-		makePath: (key) ->
-			return settings.path + key + '.zip'
-	}
+module.exports =
+
+	end: (res, response) ->
+		res.writeHead response
+		res.end();
+
+	makePath: (settings, key) ->
+		return settings.file_path + key + '.zip'
