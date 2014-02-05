@@ -35,7 +35,7 @@ hooks = require './lib/hooks'
 
 hooks.set data
 hooks.add 'download'
-# hooks.add 'command'
+hooks.add 'command'
 
 server = http.createServer hooks.dispatch
 
