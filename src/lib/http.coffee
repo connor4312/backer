@@ -1,40 +1,34 @@
-http = require 'http';
+http = require 'http'
+fs = require 'fs'
 
-module.exports = (data)-> 
+end = (res, response) ->
+	res.writeHead(response);
+	res.end();
+
+module.exports = (data) -> 
+
+	util = require('./util')(data);
 
 	server = http.createServer (req, res) ->
 
 		params = require('url').parse(req.url, true).query
+		return end(res, 400) if not params.download?
 
-		if params.download?
+		hget 'backer_links', params.download, (name) ->
+			if not data or not fs.existsSync(util.makePath(name))
+				logger.info 'Sending a 404 for download of:' + params.download
+				return end(res.end, 404)
 
-			if publics[ params.download ] == 'undefined') {
-				return res.end('404');
-			}
+			logger.debug 'Starting download of ' + name;
 
-			logger.info('Starting download of backups/' + publics[ params.download ]);
-			var stream = fs.createReadStream(config.filepath + "backups/" + publics[ params.download ], { bufferSize: 64 * 1024 });
+			stream = fs.createReadStream(util.makePath(name), { bufferSize: 64 * 1024 });
 			stream.pipe(res, { end: false });
 
-			stream.on('end', function() {
-				logger.info('Finished downloading backups/' + publics[ params.download ]);
-				delete publics[ params.download ];
-				delete stream;
+			stream.on 'end', ->
+				logger.info('Finished downloading ' + name);
+				hdel 'backer_links', name
 				res.end();
-			});
-
-		} else if (typeof params.name != 'undefined') {
-			res.writeHead(200, {'Content-Type': 'text/plain'});
-			
-			if (name = require('url').parse(req.url, true).query.name) {
-				if (statuses[name]) {
-					return res.end(statuses[name]);
-				} else {
-					return res.end('404');
-				}
-			} else {
-				return res.end('400');
-			}
-		}
 
 	server.listen(data.http_port, data.host);
+
+	data.log.info 'Booted HTTP server on ' + data.host + ':' + data.http_port

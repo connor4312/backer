@@ -7,7 +7,9 @@
     "grunt": "~0.4.2",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-coffee": "~0.4.0",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+    "redis": "~0.10.0",
+    "hiredis": "~0.1.16"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 data = {
-    host: '0.0.0.0'
+    host: '127.0.0.1'
     command_port: 9001
     http_port: 8080
 
@@ -31,8 +31,8 @@ data.redis = redis.createClient(data.redis_port, data.redis_host, data.redis_opt
 
 data.redis.on 'error', data.log.error
 
-http = require 'lib/http.js'
-command = require 'lib/command.js'
+http = require './lib/http'
+# command = require './lib/command'
 
-http.start data
-command.state data
+http(data)
+# command.state data
