@@ -1,8 +1,5 @@
+config = require '../config'
+
 module.exports =
-
-	end: (res, response) ->
-		res.writeHead response
-		res.end();
-
-	makePath: (settings, key) ->
-		return settings.file_path + key + '.zip'
+	makePath: (key) ->
+		return config.file_path + key + '.zip'
