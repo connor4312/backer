@@ -6,7 +6,7 @@ redis = require '../lib/redis'
 
 module.exports = (req, res) ->
 
-	fs.rename req.files.file.path, util.makePath(req.body.key) ->
+	fs.rename req.files.file.path, util.makePath(req.body.key), (err) ->
 		if err
 			log.error err
 			return util.end res, 400
