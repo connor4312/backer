@@ -3,7 +3,6 @@ util = require './util'
 
 module.exports = 
 	key: (req, res, next) ->
-		debugger;
 		if req.body.key? and req.body.key.match(/^[A-z0-9]+$/) and fs.existsSync(util.makePath(req.body.key))
 			next()
 		else

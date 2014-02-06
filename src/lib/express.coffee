@@ -13,7 +13,6 @@ app.param 'key', (req, res, next, key) ->
 app.use express.bodyParser()
 
 app.use '/command', (req, res, next) ->
-	debugger;
 	if req.body?.password is config.password
 		next()
 	else

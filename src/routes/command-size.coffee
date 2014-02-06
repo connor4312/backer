@@ -1,13 +1,35 @@
 util = require '../lib/util'
-exec = require('child_process').exec
 filters = require '../lib/filters'
 log = require '../lib/logging'
+fs = require 'fs'
+async = require 'async'
+path = require 'path'
+
+# Based off http://stackoverflow.com/questions/7529228/how-to-get-totalsize-of-files-in-directory
+readSizeRecursive = (item, cb) ->
+	fs.lstat item, (err, stats) ->
+		total = stats.size
+		if not err and stats.isDirectory()
+			fs.readdir item, (err, list) ->
+				async.forEach list, ((diritem, callback) ->
+					readSizeRecursive path.join(item, diritem), (err, size) ->
+						total += size
+						callback err
+						return
+
+					return
+				), (err) ->
+					cb err, total
+
+		else
+			cb err, total
 
 module.exports = (req, res) ->
 
-	exec "du -c -s " + req.body.path + " | grep total | awk '{print $1/1024}'", (err, result) ->
+	readSizeRecursive req.body.path, (err, result) ->
 		if err
 			log.error 'Error when sizing ' + req.body.path + ': ' + err
 			return res.send(500)
 
-		res.send result
+		result = Math.round(result / 1024)
+		res.end String(result)
