@@ -11,19 +11,20 @@ formdata = require 'form-data'
 
 module.exports = (req, res) ->
 
+	return util.end(res, 400) if not (req.body.dest_host and req.body.dest_port and req.body.dest_password)
+
 	util.end res, 200
 
 	redis.hset ['backer_status', req.body.key, 'zipping'], ->
 
 	path = util.makePath(req.body.key)
-
 	archive = archiver.create('zip')
 
 	archive.bulk [{
 		expand: true
 		cwd: req.body.path
 		src: ['**']
-		dest: path
+		dest: ''
 	}]
 
 	archive.pipe fs.createWriteStream(path)
