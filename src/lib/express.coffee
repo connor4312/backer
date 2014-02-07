@@ -19,6 +19,7 @@ app.use '/command', (req, res, next) ->
 		return util.end res, 403
 
 app.get  '/download/:key', require('../routes/download')
+app.get  '/status', require('../routes/status')
 app.post '/command/size', filters.path, require('../routes/command-size')
 app.post '/command/send', filters.path, filters.key_noex, require('../routes/command-send')
 app.post '/command/remove', filters.key, require('../routes/command-remove')
