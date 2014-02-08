@@ -13,7 +13,9 @@
     "express": "~3.4.8",
     "async": "~0.2.10",
     "form-data": "~0.1.2",
-    "archiver": "~0.5.2"
+    "archiver": "~0.5.2",
+    "unzip": "~0.1.9",
+    "adm-zip": "~0.4.4"
   },
   "repository": {
     "type": "git",

@@ -19,6 +19,12 @@ module.exports =
 		else
 			util.end res, 400
 
+	path_noex: (req, res, next) ->
+		if req.body.path?
+			next()
+		else
+			util.end res, 400
+
 	file: (req, res, next) ->
 		if req.files.file?
 			next()
