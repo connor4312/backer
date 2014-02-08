@@ -4,7 +4,6 @@ filters = require '../lib/filters'
 redis = require '../lib/redis'
 
 fs = require 'fs'
-archiver = require 'archiver'
 http = require 'http'
 formdata = require 'form-data'
 
