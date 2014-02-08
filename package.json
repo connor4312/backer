@@ -4,18 +4,18 @@
   "description": "",
   "main": "Gruntfile.js",
   "dependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-coffee": "~0.4.0",
     "winston": "~0.7.2",
     "redis": "~0.10.0",
     "hiredis": "~0.1.16",
     "express": "~3.4.8",
     "async": "~0.2.10",
     "form-data": "~0.1.2",
-    "archiver": "~0.5.2",
-    "unzip": "~0.1.9",
     "adm-zip": "~0.4.4"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-coffee": "~0.4.0",
   },
   "repository": {
     "type": "git",
