@@ -19,7 +19,7 @@ app.use '/command', (req, res, next) ->
 		return util.end res, 403
 
 app.get  '/download/:key', require('../routes/download')
-app.get  '/status', require('../routes/status')
+app.post  '/status', require('../routes/status')
 
 app.post '/command/send', filters.path, filters.key_noex, require('../routes/command-send')
 app.post '/command/send/restore', filters.key, filters.path_noex, require('../routes/command-send-restore')
@@ -27,7 +27,7 @@ app.post '/command/send/restore', filters.key, filters.path_noex, require('../ro
 app.post '/command/receive', filters.file, filters.key_noex, require('../routes/command-receive')
 app.post '/command/receive/restore', filters.file, filters.key_noex, require('../routes/command-receive-restore')
 
-app.post '/command/remove', filters.key, require('../routes/command-remove')
+app.post '/command/remove', filters.key_noex, require('../routes/command-remove')
 app.post '/command/size', filters.path, require('../routes/command-size')
 app.post '/command/publicize', filters.key, require('../routes/command-publicize')
 

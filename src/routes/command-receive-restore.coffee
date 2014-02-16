@@ -1,7 +1,10 @@
 util = require '../lib/util'
 log = require '../lib/logging'
 fs = require 'fs'
-admzip = require 'adm-zip'
+mkdirp = require 'mkdirp'
+async = require 'async'
+
+exec = require('child_process').exec
 filters = require '../lib/filters'
 redis = require '../lib/redis'
 
@@ -11,8 +14,11 @@ module.exports = (req, res) ->
 
 	redis.hset ['backer_status', req.body.key, 'restoring'], ->
 
-	zip = new admzip(req.files.file.path)
-	zip.extractAllTo req.body.path, true
-
-	fs.unlink req.files.file.path, ->
-		redis.hset ['backer_status', req.body.key, 'restored'], ->
+	async.series [
+		(cb) -> mkdirp req.body.path, cb
+		(cb) -> exec 'rm -rf ' + req.body.path + '/*', cb
+		(cb) -> exec 'unzip ' + req.files.file.path + ' -d ' + req.body.path
+		(cb) ->
+			fs.unlink req.files.file.path, ->
+			redis.hset ['backer_status', req.body.key, 'restored'], -> cb
+	]

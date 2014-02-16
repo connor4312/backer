@@ -10,7 +10,7 @@
     "express": "~3.4.8",
     "async": "~0.2.10",
     "form-data": "~0.1.2",
-    "adm-zip": "~0.4.4"
+    "mkdirp": "~0.3.5"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
